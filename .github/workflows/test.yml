@@ -1,0 +1,31 @@
+name: Run test of the whole application
+
+# We do not run real tests because this is a part of snapshot of a real project
+# on:
+#   push:
+#     branches:
+#       - main
+#       - '!release/**'
+
+jobs:
+  test:
+    # Setup part
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+    - name: Cache Node.js modules
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm 
+        key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.OS }}-node-
+          ${{ runner.OS }}-
+    - name: Install dependencies
+      run: npm ci
+    # End of setup
+    - run: npm run test

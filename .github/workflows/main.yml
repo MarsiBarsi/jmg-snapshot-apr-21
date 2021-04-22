@@ -1,5 +1,6 @@
 name: CI
 
+# We do not run real tests because this is a part of snapshot of a real project
 # on:
 #   push:
 #     branches: [ master ]
