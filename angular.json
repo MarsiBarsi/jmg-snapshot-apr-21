@@ -1,0 +1,169 @@
+{
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "version": 1,
+    "newProjectRoot": "projects",
+    "projects": {
+        "jamigo": {
+            "projectType": "application",
+            "schematics": {},
+            "root": "",
+            "sourceRoot": "src",
+            "prefix": "app",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "outputPath": "dist/jamigo/browser",
+                        "index": "src/index.html",
+                        "main": "src/main.browser.ts",
+                        "polyfills": "src/polyfills.ts",
+                        "tsConfig": "tsconfig.app.json",
+                        "aot": true,
+                        "assets": [
+                            "src/assets",
+                            "src/meta",
+                            {
+                                "glob": "**/*",
+                                "input": "node_modules/@taiga-ui/icons/src",
+                                "output": "assets/taiga-ui/icons"
+                            }
+                        ],
+                        "styles": [
+                            "node_modules/@taiga-ui/core/styles/taiga-ui-global.less",
+                            "node_modules/@taiga-ui/core/styles/taiga-ui-local.less",
+                            "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less",
+                            "src/styles.css"
+                        ],
+                        "scripts": []
+                    },
+                    "configurations": {
+                        "production": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.prod.ts"
+                                }
+                            ],
+                            "optimization": true,
+                            "outputHashing": "all",
+                            "sourceMap": false,
+                            "namedChunks": false,
+                            "extractLicenses": true,
+                            "vendorChunk": false,
+                            "buildOptimizer": true,
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "2mb",
+                                    "maximumError": "5mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "6kb",
+                                    "maximumError": "10kb"
+                                }
+                            ],
+                            "serviceWorker": true,
+                            "ngswConfigPath": "ngsw-config.json"
+                        }
+                    }
+                },
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "options": {
+                        "browserTarget": "jamigo:build",
+                        "sslKey": "ssl/jamigo.key",
+                        "sslCert": "ssl/jamigo.crt"
+                    },
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "jamigo:build:production"
+                        }
+                    }
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "browserTarget": "jamigo:build"
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": ["tsconfig.app.json", "tsconfig.server.json"],
+                        "exclude": ["**/node_modules/**"]
+                    }
+                },
+                "deploy": {
+                    "builder": "@angular/fire:deploy",
+                    "options": {
+                        "ssr": true,
+                        "functionsNodeVersion": 12
+                    }
+                },
+                "server": {
+                    "builder": "@angular-devkit/build-angular:server",
+                    "options": {
+                        "outputPath": "dist/jamigo/server",
+                        "main": "server.ts",
+                        "tsConfig": "tsconfig.server.json",
+                        "externalDependencies": [
+                            "firebase",
+                            "@firebase/firestore",
+                            "@firebase/app",
+                            "@firebase/analytics",
+                            "@firebase/auth",
+                            "@firebase/component",
+                            "@firebase/database",
+                            "@firebase/functions",
+                            "@firebase/installations",
+                            "@firebase/messaging",
+                            "@firebase/storage",
+                            "@firebase/performance",
+                            "@firebase/remote-config",
+                            "@firebase/util"
+                        ]
+                    },
+                    "configurations": {
+                        "production": {
+                            "outputHashing": "media",
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.prod.ts"
+                                }
+                            ],
+                            "sourceMap": false,
+                            "optimization": true
+                        }
+                    }
+                },
+                "serve-ssr": {
+                    "builder": "@nguniversal/builders:ssr-dev-server",
+                    "options": {
+                        "browserTarget": "jamigo:build",
+                        "serverTarget": "jamigo:server"
+                    },
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "jamigo:build:production",
+                            "serverTarget": "jamigo:server:production"
+                        }
+                    }
+                },
+                "prerender": {
+                    "builder": "@nguniversal/builders:prerender",
+                    "options": {
+                        "browserTarget": "jamigo:build:production",
+                        "serverTarget": "jamigo:server:production",
+                        "routes": ["/"]
+                    },
+                    "configurations": {
+                        "production": {}
+                    }
+                }
+            }
+        }
+    },
+    "defaultProject": "jamigo"
+}
