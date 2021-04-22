@@ -1,0 +1,33 @@
+{
+    "name": "Jamigo",
+    "short_name": "Jamigo",
+    "description": "Jamigo is a web app where you can play keys and sing karaoke.",
+    "icons": [
+        {
+            "src": "/meta/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/meta/android-chrome-384x384.png",
+            "sizes": "384x384",
+            "type": "image/png"
+        },
+        {
+            "src": "/meta/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "/meta/maskable_icon.png",
+            "sizes": "384x384",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "theme_color": "#21213c",
+    "background_color": "#21213c",
+    "display": "standalone",
+    "orientation": "landscape",
+    "start_url": "/browse"
+}

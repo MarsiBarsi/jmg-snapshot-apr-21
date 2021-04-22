@@ -1,0 +1,52 @@
+<table *ngIf="leaderboard$ | async as leaderboard">
+    <tbody *ngIf="user$ | async as user">
+        <tr>
+            <td colspan="2">
+                <img class="icon icon_left" src="assets/images/play.svg" alt="" />
+                <img class="icon icon_right" src="assets/images/sing.svg" alt="" />
+                <h2 class="heading tui-space_vertical-0">Your best result</h2>
+            </td>
+        </tr>
+        <tr>
+            <td class="score">
+                {{getBestPlaying(leaderboard, user) | tuiFormatNumber}}
+            </td>
+            <td class="score">
+                {{getBestSinging(leaderboard, user) | tuiFormatNumber}}
+            </td>
+        </tr>
+    </tbody>
+    <tbody>
+        <tr>
+            <td colspan="2">
+                <h2 class="heading tui-space_bottom-0 tui-space_top-2">Worldwide</h2>
+            </td>
+        </tr>
+        <tr *tuiRepeatTimes="let index of 5">
+            <td *ngIf="leaderboard['playing'][index].by | tuiMapper : toUser | async as user">
+                <tui-avatar
+                    class="avatar avatar_right"
+                    [rounded]="true"
+                    [text]="user.username"
+                    [avatarUrl]="user.avatar"
+                ></tui-avatar>
+                <div class="name">{{user.username}}</div>
+                <div class="score">
+                    {{leaderboard['playing'][index].score | tuiFormatNumber}}
+                </div>
+            </td>
+            <td *ngIf="leaderboard['singing'][index].by | tuiMapper : toUser | async as user">
+                <tui-avatar
+                    class="avatar avatar_left"
+                    [rounded]="true"
+                    [text]="user.username"
+                    [avatarUrl]="user.avatar"
+                ></tui-avatar>
+                <div class="name">{{user.username}}</div>
+                <div class="score">
+                    {{leaderboard['singing'][index].score | tuiFormatNumber}}
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

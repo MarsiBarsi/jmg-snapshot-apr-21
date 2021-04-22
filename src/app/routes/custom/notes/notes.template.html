@@ -1,0 +1,81 @@
+<ng-container *ngIf="notes$ | async as map">
+    <div
+        *ngFor="let key of keys"
+        class="key"
+        [class.key_active]="map.get(key)"
+        [style.opacity]="getOpacity(key, map)"
+    ></div>
+</ng-container>
+<div class="notes" *tuiLet="currentScore$ | async as score">
+    <div [class.vocal]="vocal">
+        <div
+            class="wrapper"
+            [style.transitionDuration.s]="duration"
+            [style.transform]="transform$ | async"
+            (transitionend.silent)="onTransitionEnd($event, score)"
+            (intersection)="onIntersection()"
+        >
+            <ng-container *ngFor="let note of chunked$ | async">
+                <note
+                    *ngIf="!vocal || note.hand"
+                    note
+                    [key]="note.key"
+                    [start]="note.start"
+                    [duration]="note.duration"
+                    [hand]="note.hand"
+                    [finger]="note.finger"
+                ></note>
+            </ng-container>
+        </div>
+    </div>
+    <h2 *ngIf="!preview" class="score g-title">{{score | tuiFormatNumber}} points</h2>
+    <div
+        *ngIf="vocal else synth"
+        class="bar bar_vocal"
+        [style.width.%]="settings.offset"
+    ></div>
+    <ng-template #synth>
+        <div class="bar" [style.height.%]="settings.offset"></div>
+    </ng-template>
+</div>
+<div
+    class="progress"
+    [class.progress_started]="!(transform$ | async)!.includes('-')"
+    [style.transitionDuration.s]="duration"
+></div>
+<tv
+    *ngIf="youtube else aac"
+    [class.tv]="!vocal"
+    [youtube]="youtube"
+    (stateChange)="onStateChange($event)"
+></tv>
+<ng-template #aac>
+    <audio
+        *ngIf="audio else node"
+        tuiMedia
+        autoplay
+        crossorigin="anonymous"
+        [playbackRate]="playing ? playbackRate : 0"
+        [src]="src"
+    ></audio>
+</ng-template>
+<ng-template #node>
+    <ng-container *ngIf="playing">
+        <ng-container
+            *ngIf="buffer$ | async as buffer"
+            autoplay
+            waAudioBufferSourceNode
+            [buffer]="buffer"
+        >
+            <ng-container
+                *ngIf="processors$ | async else dry"
+                [pitchFactor]="pitchFactor"
+            >
+                <ng-container waAudioDestinationNode></ng-container>
+            </ng-container>
+            <ng-template #dry>
+                <ng-container waAudioDestinationNode></ng-container>
+            </ng-template>
+        </ng-container>
+    </ng-container>
+</ng-template>

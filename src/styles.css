@@ -1,0 +1,134 @@
+:root {
+    --tui-primary: #ff4081;
+    --tui-primary-hover: #ff679b;
+    --tui-primary-active: #e93270;
+    --tui-link: var(--tui-primary);
+    --tui-link-hover: var(--tui-primary-hover);
+    --tui-link-active: var(--tui-primary-active);
+    --color-primary: #28c6ed;
+    --color-primary-active: #16b1f9;
+    --color-accent: gold;
+    --color-background: #21213c;
+    --color-background-secondary: #39213c;
+
+    --color-thumb: #d50000;
+    --color-index: gold;
+    --color-middle: #1565c0;
+    --color-ring: limegreen;
+    --color-pinky: #ab47bc;
+}
+
+body,
+html {
+    height: 100%;
+    line-height: initial;
+    background: var(--color-background);
+    font-family: var(--tui-text-font), sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Fredoka One', sans-serif;
+    font-weight: normal;
+}
+
+.g-title {
+    color: white;
+    text-shadow: 2px 2px 3px var(--color-background), 1px 1px 10px var(--color-primary);
+}
+
+a {
+    text-decoration: none;
+    color: var(--tui-primary);
+}
+
+header {
+    position: relative;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+}
+
+main {
+    padding: 20px 90px;
+}
+
+span.jamigo {
+    font-family: 'Righteous', sans-serif;
+    color: var(--tui-primary);
+}
+
+/*Taiga override*/
+tui-dialog-host .overlay {
+    background: rgba(0, 0, 0, 0.65) !important;
+}
+
+tui-dialog {
+    perspective: 600px;
+    color: white;
+}
+
+tui-dialog > .content {
+    background-color: transparent !important;
+}
+
+tui-dialog::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 16px;
+    z-index: -1;
+    background-color: rgba(33, 33, 60, 0.8) !important;
+    backdrop-filter: blur(4px);
+    transform: rotateY(5deg) rotateX(5deg) translate(20px, -10px);
+}
+
+@supports (-webkit-hyphens: none) {
+    tui-dialog {
+        perspective: none;
+    }
+
+    tui-dialog::before {
+        transform: skew(-4deg, 2deg);
+    }
+}
+
+tui-dialog .content > h2 {
+    font-family: 'Fredoka One', sans-serif !important;
+    font-weight: normal !important;
+    color: white;
+    text-shadow: 2px 2px 3px var(--color-background), 1px 1px 10px var(--color-primary);
+}
+
+tui-dialog button[title='Close'] {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+tui-dialog button[title='Close']:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+}
+
+aside {
+    z-index: 101;
+}
+
+tui-hints-host {
+    z-index: 102;
+}
+
+aside tui-accordion-item > .wrapper::after,
+aside tui-accordion-item > .wrapper > .header {
+    border-color: #424257 !important;
+}
+
+aside[tuiSidebar] > .wrapper {
+    background: transparent;
+}

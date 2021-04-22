@@ -1,0 +1,59 @@
+<ng-container *ngIf="midiSupport; else noSupport">
+    <div class="support">
+        <img
+            class="image image_chrome"
+            src="assets/images/chrome_colored.svg"
+            alt="Chromium browser"
+            width="64"
+            height="64"
+        />
+        <p>Your browser supports MIDI</p>
+    </div>
+    <div *ngIf="midiInputs$ | async; else noMidi" class="support">
+        <img
+            class="image"
+            src="assets/images/keyboard_colored.svg"
+            alt="MIDI device"
+            width="64"
+            height="64"
+        />
+        <p>You have a MIDI input device</p>
+    </div>
+    <ng-template #noMidi>
+        <div class="support">
+            <img
+                class="image image_invert"
+                src="assets/images/keyboard.svg"
+                alt="No MIDI device"
+                width="64"
+                height="64"
+            />
+            <p>
+                No MIDI device or it is busy
+                <small class="small">You can use a regular keyboard or touch</small>
+            </p>
+        </div>
+    </ng-template>
+</ng-container>
+<ng-template #noSupport>
+    <div class="support">
+        <img
+            class="image image_chrome image_invert"
+            src="assets/images/chrome.svg"
+            alt="Non-Chromium browser"
+            width="64"
+            height="64"
+        />
+        <p>Your browser does not support MIDI</p>
+    </div>
+    <div class="support">
+        <img
+            class="image image_invert"
+            src="assets/images/keyboard.svg"
+            alt="No MIDI device"
+            width="64"
+            height="64"
+        />
+        <p>You might have a MIDI input device, but browser does not support it</p>
+    </div>
+</ng-template>

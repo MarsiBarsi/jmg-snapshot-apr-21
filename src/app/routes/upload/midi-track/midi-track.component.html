@@ -1,0 +1,43 @@
+<ng-content select="tui-checkbox"></ng-content>
+<tui-select
+    tuiTextfieldSize="s"
+    class="control"
+    [ngModel]="name"
+    (ngModelChange)="onNameChange($event)"
+>
+    <tui-data-list *tuiDataList>
+        <button tuiOption value="Song">Song</button>
+        <button tuiOption value="Music">Music</button>
+    </tui-data-list>
+</tui-select>
+<button
+    tuiIconButton
+    size="s"
+    class="tui-space_horizontal-2"
+    type="button"
+    title="Toggle preview"
+    appearance="secondary"
+    [icon]="previewIcon"
+    (click)="togglePreview()"
+></button>
+<button
+    tuiIconButton
+    size="s"
+    type="button"
+    title="Toggle hand"
+    appearance="secondary"
+    [icon]="handIcon"
+    (click)="toggleHand()"
+></button>
+<ng-content></ng-content>
+<canvas *ngIf="preview" class="canvas" waCanvas2d [width]="width" [height]="height">
+    <canvas-path fillStyle="gold">
+        <canvas-rect
+            *ngFor="let note of notes"
+            [x]="getX(note.start)"
+            [y]="getY(note.key)"
+            [width]="getX(note.duration)"
+            [height]="scale"
+        ></canvas-rect>
+    </canvas-path>
+</canvas>

@@ -1,0 +1,140 @@
+<header class="header">
+    <div *ngIf="browser" class="wrapper">
+        <div class="notes">
+            <note
+                *ngFor="let note of track"
+                class="note"
+                [attr.data-finger]="note.finger"
+                [style.animationDelay.ms]="16000 + 33 * note.start"
+                [key]="note.key"
+                [start]="note.start"
+                [duration]="note.duration"
+                [fingers]="true"
+                [finger]="note.finger"
+            ></note>
+        </div>
+    </div>
+
+    <picture>
+        <source srcset="assets/images/logo_beta.webp" type="image/webp" />
+        <source srcset="assets/images/logo_beta.png" type="image/png" />
+        <img
+            width="350"
+            height="250"
+            class="logo"
+            src="assets/images/logo_beta.png"
+            alt="Jamigo Beta"
+        />
+    </picture>
+
+    <h2 class="title">
+        Learn to&nbsp;sing and&nbsp;play.
+        <br />In&nbsp;a&nbsp;browser. For&nbsp;free.
+    </h2>
+
+    <a tuiButton routerLink="/custom/LZdhtPriojIoY0X38M3w">Try now!</a>
+</header>
+
+<section class="block">
+    <h2>What is <span class="jamigo">Jamigo</span>?</h2>
+
+    <p>
+        <span class="jamigo">Jamigo</span> is&nbsp;a&nbsp;music game. It&nbsp;helps you
+        make practicing fun and easy. Select a&nbsp;song from the catalogue and play it
+        with a MIDI keyboard or sing.
+    </p>
+
+    <h2>Featured artists</h2>
+
+    <p class="artists">
+        <a class="artist" routerLink="/custom/nBjN83jfbhUGmJcPDAjJ">
+            <picture>
+                <source srcset="assets/images/kalax.webp" type="image/webp" />
+                <source srcset="assets/images/kalax.jpg" type="image/jpeg" />
+                <img
+                    width="200"
+                    height="200"
+                    class="photo"
+                    src="assets/images/kalax.jpg"
+                    alt=""
+                />
+            </picture>
+            Kalax
+        </a>
+        <a class="artist" routerLink="/custom/qgSmKmf8poADVhFQLaa6">
+            <picture>
+                <source srcset="assets/images/nina.webp" type="image/webp" />
+                <source srcset="assets/images/nina.jpg" type="image/jpeg" />
+                <img
+                    width="200"
+                    height="200"
+                    class="photo"
+                    src="assets/images/nina.jpg"
+                    alt=""
+                />
+            </picture>
+            NINA
+        </a>
+        <a class="artist" routerLink="/custom/wPkvckRczDZzXYprXLZE">
+            <picture>
+                <source srcset="assets/images/nightcrawler.webp" type="image/webp" />
+                <source srcset="assets/images/nightcrawler.jpg" type="image/jpeg" />
+                <img
+                    width="200"
+                    height="200"
+                    class="photo"
+                    src="assets/images/nightcrawler.jpg"
+                    alt=""
+                />
+            </picture>
+            Nightcrawler
+        </a>
+    </p>
+
+    <div class="center">
+        <a tuiButton routerLink="/browse">Browse all songs</a>
+    </div>
+</section>
+
+<section class="block block_support">
+    <h2 class="title">What do I need?</h2>
+
+    <p>
+        You only need microphone to sing. You can even use your smartphone. To play MIDI
+        keyboard your browser has to support Web MIDI API.
+    </p>
+
+    <support *ngIf="test; else try"></support>
+
+    <ng-template #try>
+        <div class="support_wrapper">
+            <div class="support">
+                <img
+                    class="image image_chrome image_invert"
+                    src="assets/images/chrome.svg"
+                    alt="Non-Chromium browser"
+                />
+                <p>A Chromium browser</p>
+            </div>
+            <div class="support">
+                <img
+                    class="image image_invert"
+                    src="assets/images/keyboard.svg"
+                    alt="No MIDI device"
+                />
+                <p>A MIDI device</p>
+            </div>
+        </div>
+        <button tuiButton class="try" (click)="onTry()">Try me!</button>
+    </ng-template>
+
+    <footer class="footer">
+        <div>Jamigo 2020 ©</div>
+        <div class="icons-links">
+            Icons made by
+            <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
+            from
+            <a href="https://www.flaticon.com/" title="Flaticon">flaticon.com</a>
+        </div>
+    </footer>
+</section>

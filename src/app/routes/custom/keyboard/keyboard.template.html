@@ -1,0 +1,27 @@
+<ng-container *ngIf="notes$ | async as notes">
+    <ng-container *ngIf="midiInputs$ | async as inputs">
+        <ng-container *ngComponentOutlet="instrument"></ng-container>
+        <div class="blacks">
+            <div
+                *ngFor="let key of keys; let index = index"
+                class="key"
+                [class.key_active]="isActive(notes, key)"
+                (touchstart.prevent)="onPointer($event, key)"
+                (touchend.prevent)="onPointer($event, key)"
+            >
+                {{getLetter(inputs.length, index)}}
+            </div>
+        </div>
+        <div class="whites">
+            <div
+                *ngFor="let key of keys; let index = index"
+                class="key"
+                [class.key_active]="isActive(notes, key)"
+                (touchstart.prevent)="onPointer($event, key)"
+                (touchend.prevent)="onPointer($event, key)"
+            >
+                {{getLetter(inputs.length, index)}}
+            </div>
+        </div>
+    </ng-container>
+</ng-container>

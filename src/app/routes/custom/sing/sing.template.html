@@ -1,0 +1,55 @@
+<ng-container waMediaStreamAudioSourceNode>
+    <ng-container volume pitch waAnalyserNode>
+        <notes class="notes" (start)="onStart()" (end)="onScore($event)"></notes>
+        <div class="effects" voice [style.left.%]="settings.offset">
+            <ng-container *ngIf="!isSafari">
+                <video autoplay loop class="light">
+                    <source src="assets/video/light_vertical.mp4" />
+                </video>
+                <video autoplay loop class="voice animated">
+                    <source src="assets/video/voice.mp4" />
+                </video>
+                <img alt="" src="assets/video/voice.png" class="voice" />
+            </ng-container>
+            <div class="voice safari"></div>
+        </div>
+    </ng-container>
+    <ng-container
+        *ngIf="settings.vocalEffect"
+        waConvolverNode
+        buffer="assets/audio/retrowave/response.aac"
+    >
+        <ng-container waGainNode gain="0.05">
+            <ng-container waAudioDestinationNode></ng-container>
+        </ng-container>
+    </ng-container>
+</ng-container>
+
+<h2
+    *ngIf="lyrics$ | async as lines"
+    class="lyrics"
+    [class.lyrics_top]="settings.lyricsTop"
+>
+    <span
+        *ngFor="let line of lines; let first = first; let last = last"
+        [class.current]="first"
+        [class.upcoming]="last"
+    >
+        <ng-container *ngIf="first else plain">
+            <span
+                *ngFor="let word of lines[0].line; let index = index"
+                class="word word_animated"
+                [style.animationName]="'fill' + lines[0].index % 2"
+                [style.animationDelay.ms]="lines[0].duration / lines[0].line.length * index"
+                [style.animationDuration.ms]="lines[0].duration / lines[0].line.length"
+            >
+                {{word}}
+            </span>
+        </ng-container>
+        <ng-template #plain>
+            <span *ngFor="let word of lines[1].line; let index = index" class="word">
+                {{word}}
+            </span>
+        </ng-template>
+    </span>
+</h2>

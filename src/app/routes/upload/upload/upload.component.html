@@ -1,0 +1,77 @@
+<form class="form" [formGroup]="form" (submit)="onSubmit()">
+    <tui-input class="tui-space_vertical-3" formControlName="author"> Author </tui-input>
+
+    <tui-input class="tui-space_vertical-3" formControlName="title"> Title </tui-input>
+
+    <tui-input class="tui-space_vertical-3" formControlName="cover">
+        Cover URL
+    </tui-input>
+
+    <tui-input class="tui-space_vertical-3" formControlName="thumbnail">
+        Thumbnail URL
+    </tui-input>
+
+    <tui-input class="tui-space_vertical-3" formControlName="buyLink">
+        Buy link
+    </tui-input>
+
+    <tui-input class="tui-space_vertical-3" formControlName="youtube">
+        YouTube
+    </tui-input>
+
+    <tui-input-file
+        link="Upload MIDI file"
+        label=""
+        [ngModel]="null"
+        [ngModelOptions]="{standalone: true}"
+        (ngModelChange)="onFileChange($event)"
+        (midi)="onMidi($event)"
+    ></tui-input-file>
+
+    <p *ngIf="parseError" class="error">Failed to parse file</p>
+
+    <div class="buttons">
+        <a tuiButton class="button" routerLink="/" appearance="secondary"> Back </a>
+        <button tuiButton class="button" type="submit" [disabled]="!submittable">
+            Add song
+        </button>
+    </div>
+</form>
+
+<div *ngIf="song" class="tui-space_left-4 tui-space_top-2">
+    <midi-track
+        *ngFor="let track of song.tracks | keyvalue; trackBy: trackByNotes"
+        [notes]="track.value"
+        [name]="track.key"
+        (nameChange)="onTrackNameChange(track.key, $event)"
+    >
+        <button
+            tuiIconButton
+            class="tui-space_horizontal-2"
+            type="button"
+            title="Remove"
+            appearance="secondary"
+            icon="tuiIconTrash"
+            size="s"
+            (click)="removeTrack(track.key)"
+        ></button>
+        <tui-checkbox
+            size="l"
+            class="tui-space_vertical-1 tui-space_horizontal-3"
+            [ngModelOptions]="{standalone: true}"
+            [ngModel]="isSelected(track.value)"
+            (ngModelChange)="onSelectedChange(track.value)"
+        ></tui-checkbox>
+    </midi-track>
+
+    <button
+        tuiButton
+        size="s"
+        type="button"
+        class="tui-space_left-3"
+        [disabled]="!mergeable"
+        (click)="merge()"
+    >
+        Merge selected
+    </button>
+</div>

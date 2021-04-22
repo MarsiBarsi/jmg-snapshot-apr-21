@@ -1,0 +1,52 @@
+<p>
+    You have earned <span class="score">{{score | tuiFormatNumber}}</span> points!
+
+    <ng-container *ngIf="user$ | async as user else login">
+        <ng-container *ngIf="leaderboard$ | async as leaderboard else loading">
+            Your current high score is
+            <span class="score">
+                {{getBestScore(leaderboard, user) | tuiFormatNumber}}
+            </span>
+            <strong *ngIf="getBestScore(leaderboard, user) < score" class="record">
+                You just beat your record!
+            </strong>
+        </ng-container>
+        <ng-template #loading>
+            <tui-loader
+                class="loader"
+                [inheritColor]="true"
+                [showLoader]="true"
+            ></tui-loader>
+        </ng-template>
+    </ng-container>
+</p>
+<ng-template #login>
+    <p>
+        <a tuiButton class="tui-space_right-1" size="xs" routerLink="/login">Login</a> to
+        participate in the Leaderboard!
+    </p>
+</ng-template>
+<h2>Share</h2>
+<div class="share">
+    <a target="_blank" rel="noopener" [href]="twitter">
+        <img
+            class="icon"
+            src="assets/images/tw.svg"
+            width="24"
+            height="24"
+            alt="Twitter"
+        />
+    </a>
+    <a target="_blank" rel="noopener" [href]="facebook">
+        <img
+            class="icon"
+            src="assets/images/fb.svg"
+            width="22"
+            height="22"
+            alt="Facebook"
+        />
+    </a>
+    <a target="_blank" rel="noopener" [href]="vk">
+        <img class="icon" src="assets/images/vk.svg" width="28" height="28" alt="VK" />
+    </a>
+</div>

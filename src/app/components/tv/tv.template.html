@@ -1,0 +1,13 @@
+<img class="crt" src="assets/images/crt.png" alt="" width="246" height="240" />
+<youtube-player
+    *ngIf="youtube"
+    class="screen"
+    suggestedQuality="small"
+    [videoId]="youtube"
+    [width]="width"
+    [height]="height"
+    [playerVars]="playerVars"
+    (ready)="$event.target.playVideo()"
+    (stateChange)="stateChange.emit($event)"
+></youtube-player>
+<img class="glare" src="assets/images/glare.png" alt="" width="246" height="240" />

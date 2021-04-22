@@ -1,0 +1,10 @@
+<ng-container *tuiLet="calibration$ | async as calibration">
+    <notes *ngIf="calibration !== null; else message" (end)="onScore($event)"></notes>
+    <ng-template #message>
+        <section *ngIf="(midiInputs$ | async)?.length" class="calibration">
+            <h2 class="g-title">{{ heading }}</h2>
+            <p>Play low C you are comfortable reaching to start</p>
+        </section>
+    </ng-template>
+    <keyboard></keyboard>
+</ng-container>

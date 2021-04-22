@@ -1,0 +1,212 @@
+@keyframes rotate {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+:host {
+    display: block;
+    width: 280px;
+    margin: 20px;
+    text-align: center;
+    font-family: 'Fredoka One', sans-serif;
+
+    &:not(._mobile) {
+        perspective: 600px;
+
+        &:hover {
+            .box {
+                transform: rotateX(55deg);
+            }
+
+            .side {
+                color: rgb(61, 51, 61);
+            }
+
+            .wrapper {
+                box-shadow: 0 0 5em #16b1f9, inset 0 0 5em -2em rgba(0, 0, 0, 0.5);
+            }
+
+            .case {
+                transform: rotateY(-40deg);
+            }
+
+            .image::after {
+                transform: skew(-10deg) translate3d(40em, 0, 0);
+            }
+        }
+    }
+}
+
+.box {
+    font-size: 0.7em;
+    margin: 0 auto 2em;
+    width: 22em;
+    height: 20em;
+    transition: transform 0.3s;
+    will-change: transform;
+    contain: size layout;
+    transform-style: preserve-3d;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 100%;
+        width: 1em;
+        box-sizing: border-box;
+        background: rgb(61, 51, 71);
+        box-shadow: inset 0 2em 2em -2em;
+        border-bottom: 0.1em solid;
+        transform-origin: left;
+        transform: rotateY(90deg);
+    }
+}
+
+.wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgb(41, 31, 51);
+    transform: translate3d(0, 0, -1em);
+    transform-style: preserve-3d;
+    transition: box-shadow 0.3s;
+
+    :host._mobile & {
+        display: none;
+    }
+
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 1em;
+        background: rgb(61, 51, 71);
+        box-shadow: inset 0 -0.1em rgba(0, 0, 0, 0.4);
+        transform-origin: top;
+        transform: rotateX(90deg);
+    }
+
+    &::after {
+        top: 100%;
+    }
+}
+
+.disk {
+    position: absolute;
+    top: 0.3em;
+    left: 2.3em;
+    right: 0.3em;
+    bottom: 0.3em;
+    border-radius: 100%;
+    overflow: hidden;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 3em;
+        height: 3em;
+        background: rgb(61, 51, 71);
+        border-radius: 100%;
+        box-shadow: 0 0 0 1.5em rgba(255, 255, 255, 0.3);
+        transform: translate3d(-50%, -50%, 0);
+    }
+}
+
+.cd {
+    width: 100%;
+    height: 100%;
+    filter: blur(4px);
+    animation: rotate 0.3s infinite linear;
+}
+
+.side {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 2em;
+    background: currentColor;
+    transition: color 0.3s;
+    color: rgb(31, 21, 31);
+    border: 0.2em solid rgba(255, 255, 255, 0.3);
+    border-left: none;
+    border-right: none;
+
+    &::before {
+        content: '';
+        position: absolute;
+        width: 0.2em;
+        left: 0.1em;
+        top: 0;
+        bottom: 0;
+        color: rgb(15, 15, 15);
+        background: currentColor;
+        box-shadow: 0.3em 0, 0.6em 0, 0.9em 0, 1.2em 0, 1.5em 0;
+    }
+}
+
+.case {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform-origin: left;
+    transform-style: preserve-3d;
+    transition: transform 0.3s 0.1s;
+
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 1em;
+        background: rgba(255, 255, 255, 0.3);
+        transform-origin: top;
+        transform: rotateX(-90deg);
+    }
+
+    &::after {
+        top: 100%;
+    }
+}
+
+.image {
+    position: absolute;
+    top: 0;
+    left: 2em;
+    right: 0;
+    bottom: 0;
+    background-position: center;
+    background-size: cover;
+    box-sizing: border-box;
+    border: 0.2em solid rgba(255, 255, 255, 0.3);
+    overflow: hidden;
+
+    &::after {
+        content: '';
+        position: absolute;
+        left: -10em;
+        top: 0;
+        bottom: 0;
+        width: 2em;
+        background: white;
+        box-shadow: 0 0 1em white;
+        transform: skew(-10deg);
+        transition: transform 0.3s;
+    }
+}
+
+.cover {
+    width: 100%;
+    height: 100%;
+}

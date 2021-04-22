@@ -1,0 +1,41 @@
+<ng-container *ngIf="notes$ | async as notes" class="piano">
+    <ng-container *ngForMap="let note of notes; let d = destroyed">
+        <ng-container waOscillatorNode detune="5" autoplay [frequency]="note | frequency">
+            <ng-container
+                waGainNode
+                gain="0"
+                [gain]="
+                    volume(note, notes, d) * 0.3
+                        | adsr: 0:0.1:volume(note, notes, d) * 0.1:0.02
+                "
+            >
+                <ng-container waAudioDestinationNode></ng-container>
+            </ng-container>
+        </ng-container>
+        <ng-container
+            waOscillatorNode
+            type="sawtooth"
+            autoplay
+            [frequency]="note | frequency"
+        >
+            <ng-container
+                waGainNode
+                gain="0"
+                [gain]="
+                    volume(note, notes, d) * 0.3
+                        | adsr: 0:0.1:volume(note, notes, d) * 0.1:1
+                "
+            >
+                <ng-container waAudioDestinationNode></ng-container>
+                <ng-container [waOutput]="convolver"></ng-container>
+            </ng-container>
+        </ng-container>
+    </ng-container>
+    <ng-container
+        #convolver="AudioNode"
+        waConvolverNode
+        buffer="assets/audio/retrowave/response.aac"
+    >
+        <ng-container waAudioDestinationNode></ng-container>
+    </ng-container>
+</ng-container>

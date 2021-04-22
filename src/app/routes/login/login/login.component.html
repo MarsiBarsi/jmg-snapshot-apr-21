@@ -1,0 +1,55 @@
+<h1 class="heading">Login to keep track of your score</h1>
+
+<p class="row">We will only use your account for the leaderboards</p>
+
+<p class="row">
+    <button type="button" class="button button_facebook" (click)="loginWithFacebook()">
+        Sign in with Facebook
+        <img
+            alt=""
+            class="tui-space_left-2"
+            width="16"
+            height="16"
+            src="assets/images/facebook.svg"
+        />
+    </button>
+
+    <button type="button" class="button button_google" (click)="loginWithGoogle()">
+        Sign in with Google
+        <img
+            alt=""
+            class="tui-space_left-2"
+            width="16"
+            height="16"
+            src="assets/images/google.svg"
+        />
+    </button>
+</p>
+
+<p class="row">
+    <button type="button" class="button button_twitter" (click)="loginWithTwitter()">
+        Sign in with Twitter
+        <img
+            alt=""
+            class="tui-space_left-2"
+            width="16"
+            height="16"
+            src="assets/images/twitter.svg"
+        />
+    </button>
+
+    <button type="button" class="button button_github" (click)="loginWithGithub()">
+        Sign in with Github
+        <img
+            alt=""
+            class="tui-space_left-2"
+            width="16"
+            height="16"
+            src="assets/images/github.svg"
+        />
+    </button>
+</p>
+
+<p *ngIf="errorMessage$ | async as message" class="error sign-in-error" [@pop]>
+    {{ message }}
+</p>

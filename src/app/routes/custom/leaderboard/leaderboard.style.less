@@ -1,0 +1,82 @@
+:host {
+    display: block;
+    min-height: 433px;
+}
+
+.icon {
+    position: absolute;
+    top: 40px;
+    width: 128px;
+    opacity: 0.15;
+
+    &_left {
+        left: 40px;
+    }
+
+    &_right {
+        right: 40px;
+    }
+}
+
+table {
+    width: 100%;
+    line-height: 22px;
+    margin-top: -8px;
+    animation: tuiFadeIn 1s .3s;
+    animation-fill-mode: backwards;
+}
+
+td {
+    width: 50%;
+    box-sizing: border-box;
+    padding: 8px 16px;
+    font-weight: bold;
+
+    &:first-child {
+        text-align: right;
+    }
+
+    &[colspan] {
+        text-align: center;
+    }
+}
+
+.heading {
+    color: white;
+    text-shadow: 2px 2px 3px var(--color-background), 1px 1px 10px var(--color-primary);
+}
+
+.avatar {
+    color: rgba(40, 198, 237, 0.12);
+
+    &_left {
+        float: left;
+        margin-right: 16px;
+    }
+
+    &_right {
+        float: right;
+        margin-left: 16px;
+    }
+
+    ::ng-deep .text {
+        color: white;
+        font-weight: bold;
+    }
+}
+
+.name {
+    margin: -4px 0 4px;
+
+    &:empty::before {
+        content: '\00a0';
+    }
+}
+
+.score {
+    font-family: 'Fredoka One', sans-serif;
+    font-size: 28px;
+    color: white;
+    font-weight: normal;
+    text-shadow: 2px 2px 3px var(--color-background), 1px 1px 10px var(--tui-primary);
+}

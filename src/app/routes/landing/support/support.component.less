@@ -1,0 +1,30 @@
+:host {
+    display: flex;
+}
+
+.support {
+    flex: 1;
+    text-align: center;
+    margin: 0 2vw;
+}
+
+.image {
+    width: 20vw;
+    height: 20vw;
+    max-width: 192px;
+    max-height: 192px;
+
+    &_chrome {
+        width: 15vw;
+        max-width: 144px;
+    }
+
+    &_invert {
+        filter: invert();
+    }
+}
+
+.small {
+    display: block;
+    font-size: 0.6em;
+}

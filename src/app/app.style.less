@@ -1,0 +1,72 @@
+:host {
+    display: flex;
+    height: 100%;
+}
+
+::ng-deep custom._playing + header {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.root {
+    flex: 1;
+}
+
+.follow {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-right: 20px;
+    margin-right: 20px;
+    border-right: 1px solid;
+
+    @media screen and (max-width: 599px) {
+        & {
+            display: none;
+        }
+    }
+}
+
+.share {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 0 auto 0 0;
+
+    @media screen and (max-width: 599px) {
+        & {
+            font-size: 0;
+        }
+    }
+}
+
+.icon {
+    display: block;
+    margin-left: 8px;
+}
+
+.mail {
+    &_mobile {
+        display: none;
+    }
+
+    @media screen and (max-width: 599px) {
+        & {
+            display: none;
+        }
+
+        &_mobile {
+            display: block;
+        }
+    }
+}
+
+.producthunt {
+    margin-top: 4px;
+    height: 32px;
+    width: 150px;
+
+    @media screen and (max-width: 800px) {
+        display: none;
+    }
+}

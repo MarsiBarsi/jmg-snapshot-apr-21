@@ -1,0 +1,50 @@
+export const CHARACTERS = [
+    'Col. Trautman',
+    'Wreck-Gar',
+    'Mr. T',
+    'Jareth the Goblin King',
+    'Maverick',
+    'Jessica Rabbit',
+    'Bill and Ted',
+    'Crocodile Dundee',
+    'Hulk Hogan',
+    'Dr. Tyrell',
+    'Roger Murtaugh',
+    'Otto',
+    'Joan Wilder',
+    'Tetsuo',
+    'Harry Tuttle',
+    'Asian Hawk',
+    'MacReady',
+    'Alex Murphy',
+    'Nick Rivers',
+    'Dr. Sidney Zwibel',
+    'Egon Spengler',
+    'Ivan Drago',
+    'Del Griffith',
+    'Valentine McKee',
+    'John Ryder',
+    'Moses Hightower',
+    'Teen Wolf',
+    'Chucky',
+    'Biff Tannen',
+    'Boba Fett',
+    'Ash',
+    'Pee-wee Herman',
+    'Hans Gruber',
+    'Snake Plissken',
+    'Alex Murphy',
+    'Inigo Montoya',
+    'Ferris Bueller',
+    'Axel Foley',
+    'Cobra',
+    'John Bender',
+    'John Matrix',
+];
+
+export function fromId(id: string): readonly string[] {
+    return Array.from({length: CHARACTERS.length}, (_, i) => i)
+        .sort((a, b) => (id.charCodeAt((a + b) % id.length) % 2 === 0 ? 1 : -1))
+        .slice(0, 5)
+        .map(i => CHARACTERS[i]);
+}

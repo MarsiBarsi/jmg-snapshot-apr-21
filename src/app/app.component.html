@@ -1,0 +1,85 @@
+<tui-root
+    tuiMode="onDark"
+    class="root"
+    [@routeAnimations]="animation$ | async"
+    [attr.data-route]="animation$ | async"
+>
+    <router-outlet></router-outlet>
+    <header>
+        <div class="follow">
+            Follow us on
+            <a href="https://twitter.com/jamigo_app" rel="noopener" target="_blank">
+                <img
+                    class="icon"
+                    src="assets/images/tw.svg"
+                    width="24"
+                    height="24"
+                    alt="Twitter"
+                />
+            </a>
+        </div>
+        <div class="share">
+            Share on
+            <a rel="noopener" target="_blank" [href]="twitter">
+                <img
+                    class="icon"
+                    src="assets/images/tw.svg"
+                    width="24"
+                    height="24"
+                    alt="Twitter"
+                />
+            </a>
+            <a rel="noopener" target="_blank" [href]="facebook">
+                <img
+                    class="icon"
+                    src="assets/images/fb.svg"
+                    width="22"
+                    height="22"
+                    alt="Facebook"
+                />
+            </a>
+            <a rel="noopener" target="_blank" [href]="vk">
+                <img
+                    class="icon"
+                    src="assets/images/vk.svg"
+                    width="28"
+                    height="28"
+                    alt="VK"
+                />
+            </a>
+            <a
+                tuiButton
+                size="s"
+                appearance="secondary"
+                icon="tuiIconMail"
+                class="mail tui-space_left-6"
+                href="mailto:jamigo@googlegroups.com"
+            >
+                Submit feedback
+            </a>
+            <a
+                tuiIconButton
+                size="s"
+                appearance="secondary"
+                icon="tuiIconMail"
+                title="Submit feedback"
+                class="mail_mobile tui-space_left-6"
+                href="mailto:jamigo@googlegroups.com"
+            ></a>
+            <a
+                class="tui-space_left-4"
+                title="Jamigo on ProductHunt"
+                href="https://www.producthunt.com/posts/jamigo?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-jamigo"
+                target="_blank"
+            >
+                <img
+                    class="producthunt"
+                    src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=280028&theme=dark"
+                    alt=""
+                    width="250"
+                    height="54"
+                />
+            </a>
+        </div>
+    </header>
+</tui-root>

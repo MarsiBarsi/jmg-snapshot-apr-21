@@ -1,0 +1,176 @@
+<ng-content></ng-content>
+<ng-container *ngIf="user$ | async as user else unauthorized">
+    <button
+        *tuiLet="composition$ | async as composition"
+        tuiButton
+        appearance="secondary"
+        size="s"
+        type="button"
+        [icon]="avatar"
+        (click)="toggle(true)"
+        (tuiActiveZoneChange)="onActiveZone($event)"
+    >
+        Settings
+        <tui-scrollbar *tuiSidebar="open; direction: 'right'" class="sidebar">
+            <div class="wrapper">
+                <h2 class="heading">Settings</h2>
+                <tui-accordion
+                    *ngIf="user$ | async as user"
+                    class="accordion"
+                    [rounded]="false"
+                >
+                    <tui-accordion-item borders="top-bottom">
+                        User
+                        <ng-template tuiAccordionItemContent>
+                            <tui-badged-content
+                                class="avatar"
+                                size="l"
+                                [rounded]="true"
+                                [contentTop]="user.avatar && remove"
+                            >
+                                <tui-avatar
+                                    size="l"
+                                    [rounded]="true"
+                                    [avatarUrl]="user.avatar"
+                                    [text]="user.username"
+                                ></tui-avatar>
+                            </tui-badged-content>
+                            <ng-template #remove>
+                                <button
+                                    tuiPreventDefault="mousedown"
+                                    tuiIconButton
+                                    type="button"
+                                    size="xs"
+                                    icon="tuiIconCloseLarge"
+                                    title="Remove"
+                                    appearance="secondary"
+                                    [pseudoPressed]="false"
+                                    (click)="onAvatarChange(null)"
+                                ></button>
+                            </ng-template>
+                            <tui-input
+                                [ngModelOptions]="{updateOn: 'blur'}"
+                                [ngModel]="user.username"
+                                (ngModelChange)="onNameChange($event)"
+                            >
+                                Display name
+                            </tui-input>
+                            <tui-input-file
+                                *tuiLet="file$ | async as file"
+                                tuiPreventDefault="mousedown"
+                                class="upload"
+                                accept="image/*"
+                                link="Upload avatar"
+                                label=" "
+                                [maxFileSize]="500000"
+                                [ngModel]="file"
+                                [loadingFiles]="getLoading(file)"
+                                (ngModelChange)="$event && onAvatarChange($event)"
+                            ></tui-input-file>
+                        </ng-template>
+                    </tui-accordion-item>
+                    <tui-accordion-item borders="top-bottom">
+                        Playing
+                        <ng-template tuiAccordionItemContent>
+                            <tui-checkbox-labeled
+                                [ngModel]="leftHand"
+                                (ngModelChange)="onLeftHandChange($event)"
+                            >
+                                Left hand
+                            </tui-checkbox-labeled>
+                            <tui-checkbox-labeled
+                                class="tui-space_vertical-4"
+                                [ngModel]="rightHand"
+                                (ngModelChange)="onRightHandChange($event)"
+                            >
+                                Right hand
+                            </tui-checkbox-labeled>
+                            <tui-input-slider
+                                [tuiHintContent]="getHint(composition)"
+                                [max]="100"
+                                [min]="50"
+                                [readOnly]="!composition"
+                                [pluralize]="percents"
+                                [ngModel]="getSpeed(composition)"
+                                (ngModelChange)="onSpeedChange($event, composition)"
+                            >
+                                Speed
+                            </tui-input-slider>
+                        </ng-template>
+                    </tui-accordion-item>
+                    <tui-accordion-item borders="top-bottom">
+                        Singing
+                        <ng-template tuiAccordionItemContent>
+                            <tui-checkbox-labeled
+                                class="tui-space_bottom-7"
+                                [ngModel]="vocalEffect"
+                                (ngModelChange)="onVocalEffectChange($event)"
+                            >
+                                Reverb effect
+                            </tui-checkbox-labeled>
+                            <tui-radio-labeled
+                                class="tui-space_bottom-3"
+                                [item]="true"
+                                [ngModel]="lyricsTop"
+                                (ngModelChange)="onLyricsTopChange($event)"
+                            >
+                                Lyrics on the top
+                            </tui-radio-labeled>
+                            <tui-radio-labeled
+                                class="tui-space_bottom-7"
+                                [item]="false"
+                                [ngModel]="lyricsTop"
+                                (ngModelChange)="onLyricsTopChange($event)"
+                            >
+                                Lyrics on the bottom
+                            </tui-radio-labeled>
+                            <tui-input-slider
+                                [tuiHintContent]="getHint(composition)"
+                                [max]="12"
+                                [min]="-12"
+                                [quantum]="getTranspositionQuantum(composition)"
+                                [readOnly]="!composition"
+                                [pluralize]="semitones"
+                                [ngModel]="getTransposition(composition)"
+                                (ngModelChange)="onTranspositionChange($event, composition)"
+                            >
+                                Transposition
+                            </tui-input-slider>
+                        </ng-template>
+                    </tui-accordion-item>
+                </tui-accordion>
+                <button
+                    tuiButton
+                    type="button"
+                    class="logout"
+                    size="m"
+                    appearance="secondary"
+                    iconRight="tuiIconLogoutLarge"
+                    [pseudoPressed]="false"
+                    (click)="logout()"
+                >
+                    Logout
+                </button>
+            </div>
+        </tui-scrollbar>
+    </button>
+    <ng-template #avatar>
+        <tui-avatar
+            size="xs"
+            [rounded]="true"
+            [avatarUrl]="user.avatar"
+            [text]="user.username"
+        ></tui-avatar>
+    </ng-template>
+</ng-container>
+<ng-template #unauthorized>
+    <a
+        tuiButton
+        size="s"
+        class="login"
+        routerLink="/login"
+        routerLinkActive="login_hidden"
+    >
+        Login
+    </a>
+</ng-template>

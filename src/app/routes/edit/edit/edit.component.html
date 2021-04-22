@@ -1,0 +1,87 @@
+<div class="keys"><div *ngFor="let key of keys" class="key"></div></div>
+<header class="header">
+    <button tuiButton size="s" type="button" appearance="secondary">Back</button>
+    <button tuiButton size="s" type="button" class="tui-space_left-5" (click)="save()">
+        Save
+    </button>
+    <div class="paint">
+        <label>
+            <input
+                type="radio"
+                name="tool"
+                class="radio"
+                [value]="null"
+                [(ngModel)]="tool"
+            />
+            <tui-svg src="tuiIconTrashLarge" class="hand bin"></tui-svg>
+        </label>
+        <label>
+            <input
+                type="radio"
+                name="tool"
+                class="radio"
+                [value]="left"
+                [(ngModel)]="tool"
+            />
+            <hand class="hand hand_mirror"></hand>
+        </label>
+        <label>
+            <input
+                type="radio"
+                name="tool"
+                class="radio"
+                [value]="right"
+                [(ngModel)]="tool"
+            />
+            <hand class="hand"></hand>
+        </label>
+    </div>
+    <tui-input-number tuiTextfieldSize="m" [(ngModel)]="tempo">Tempo</tui-input-number>
+</header>
+<div class="notes">
+    <div class="wrapper" [style.minHeight.px]="max">
+        <ng-container *ngFor="let note of track; let index = index">
+            <note
+                [key]="note.key"
+                [start]="note.start"
+                [duration]="note.duration"
+                [hand]="note.hand"
+                [finger]="note.finger"
+                [tuiDropdown]="isActive(index)"
+                [tuiDropdownContent]="dropdown"
+                [tuiDropdownSided]="true"
+                (click)="onClick(note, index)"
+            ></note>
+            <ng-template polymorpheus #dropdown="polymorpheus">
+                <form class="dropdown" [tuiMode]="null" (ngSubmit)="close()">
+                    <tui-input-count
+                        name="key"
+                        [ngModelOptions]="options"
+                        [ngModel]="note.key"
+                        (ngModelChange)="onKeyChange(note, $event)"
+                    >
+                        Key
+                    </tui-input-count>
+                    <tui-input-count
+                        class="tui-space_vertical-4"
+                        name="start"
+                        [ngModelOptions]="options"
+                        [ngModel]="note.start"
+                        (ngModelChange)="onStartChange(note, $event)"
+                    >
+                        Start
+                    </tui-input-count>
+                    <tui-input-count
+                        name="duration"
+                        [ngModelOptions]="options"
+                        [ngModel]="note.duration"
+                        (ngModelChange)="onDurationChange(note, $event)"
+                    >
+                        Duration
+                    </tui-input-count>
+                    <button class="submit" tuiButton>Submit</button>
+                </form>
+            </ng-template>
+        </ng-container>
+    </div>
+</div>

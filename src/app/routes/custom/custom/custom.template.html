@@ -1,0 +1,89 @@
+<ng-container *tuiLet="current$ | async as mode">
+    <footer class="footer">
+        <a href="https://jamigo.app" target="_blank" rel="noopener" class="powered">
+            Powered by
+            <picture>
+                <source srcset="assets/images/logo_beta.webp" type="image/webp" />
+                <source srcset="assets/images/logo_beta.png" type="image/png" />
+                <img
+                    src="assets/images/logo_beta.png"
+                    height="64"
+                    width="90"
+                    alt="Jamigo"
+                    class="tui-space_left-2"
+                />
+            </picture>
+        </a>
+        <a
+            *ngIf="buy"
+            target="_blank"
+            class="buy"
+            rel="noopener"
+            [href]="buy"
+            [style.backgroundImage]="background"
+            [class.buy_hidden]="!isMenu(mode)"
+            (click)="onBuy()"
+        >
+            Buy song
+        </a>
+    </footer>
+    <div *ngIf="isMenu(mode) else game" class="wrapper">
+        <h1 class="g-title title">{{title}}</h1>
+        <ng-container *tuiLet="audio$ | async as audio">
+            <ng-container *ngIf="isLoaded(audio) else loading">
+                <button type="button" class="start" (click)="onPlay()">
+                    <img class="icon" src="assets/images/play.svg" alt="" />
+                    Play
+                </button>
+                <button type="button" class="leaderboard" (click)="onLeaderboard()">
+                    <img class="icon" src="assets/images/leaderboard.svg" alt="" />
+                    Leaderboard
+                </button>
+                <button
+                    type="button"
+                    class="start"
+                    [disabled]="!stream"
+                    (click)="onSing()"
+                >
+                    <img class="icon" src="assets/images/sing.svg" alt="" />
+                    Sing
+                </button>
+            </ng-container>
+            <ng-template #loading>
+                <progress class="progress" [value]="audio || 0"></progress>
+                <div class="loading">Loading audio</div>
+            </ng-template>
+        </ng-container>
+        <a tuiButton size="m" class="browse" routerLink="/browse"> Browse other songs </a>
+    </div>
+    <ng-template #game>
+        <ng-container *ngIf="refresh$ | async">
+            <play *ngIf="isPlay(mode) else sing" (score)="onScore($event, mode)"></play>
+            <ng-template #sing>
+                <sing (score)="onScore($event, mode)"></sing>
+            </ng-template>
+            <header class="header">
+                <button
+                    tuiButton
+                    size="s"
+                    class="button"
+                    type="button"
+                    (click)="onBack()"
+                >
+                    Back
+                </button>
+                <button
+                    tuiButton
+                    size="s"
+                    class="button"
+                    type="button"
+                    (click)="onRestart()"
+                >
+                    Restart
+                </button>
+            </header>
+        </ng-container>
+    </ng-template>
+</ng-container>
+<button type="button" fullscreen></button>
+<div class="portrait">Landscape is required on mobile devices</div>

@@ -1,0 +1,38 @@
+<audio #audio autoplay crossorigin="anonymous"></audio>
+<div *ngIf="compositions$ | async as compositions; else loading" class="list">
+    <ng-container *ngFor="let composition of compositions">
+        <a
+            *ngIf="!composition.youtube; else vhs"
+            [routerLink]="'/custom/' + composition.id"
+            [cd]="composition.thumbnail"
+            (tuiHoveredChange)="onHovered($event, composition, audio)"
+        >
+            <strong>{{ composition.author }}</strong>
+            <div>{{ composition.title }}</div>
+        </a>
+        <ng-template #vhs>
+            <a
+                [routerLink]="'/custom/' + composition.id"
+                [vhs]="composition.thumbnail"
+                (tuiHoveredChange)="onYoutube($event, composition.youtube)"
+            >
+                <strong>{{ composition.author }}</strong>
+                <div>{{ composition.title }}</div>
+            </a>
+        </ng-template>
+    </ng-container>
+    <footer>
+        More songs are coming. If you want your song to be featured, please contact us at
+        <a href="mailto:jamigo@googlegroups.com">jamigo@googlegroups.com</a>. If you want
+        your song taken down — please let us know using the same address.
+    </footer>
+</div>
+<ng-template #loading>
+    <tui-loader
+        class="loader"
+        size="xxl"
+        [inheritColor]="true"
+        [showLoader]="true"
+    ></tui-loader>
+</ng-template>
+<tv class="tv" [class.tv_active]="youtube" [youtube]="youtube"></tv>

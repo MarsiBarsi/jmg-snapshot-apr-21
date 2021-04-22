@@ -1,0 +1,128 @@
+:host {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: var(--color-background);
+    padding: 120px 20px;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    color: white;
+
+    @media screen and (max-width: 599px) {
+        flex-direction: column;
+        margin: 0;
+    }
+}
+
+.heading {
+    color: #fff;
+    font-size: 4vw;
+    text-shadow: 2px 2px 3px var(--color-background), 1px 1px 10px var(--color-primary);
+
+    @media screen and (max-width: 599px) {
+        font-size: 2em;
+    }
+}
+
+.button {
+    margin: 0 16px;
+    padding: 0;
+    width: 200px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    background: #fff;
+    color: #424242;
+    font-size: 14px;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background, box-shadow, filter, transfrom, color, 0.3s;
+    filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.3));
+
+    &_github {
+        background: #fff url('/assets/images/sign-in-bottom-right.jpg') no-repeat;
+        background-position: 50px 0;
+
+        &:hover {
+            background-position: 0 0;
+        }
+
+        &:active {
+            color: #fff;
+            background: var(--tui-primary);
+        }
+    }
+
+    &_google {
+        background: #fff url('/assets/images/sign-in-bottom-left.jpg') no-repeat;
+        background-position: -50px 0;
+
+        &:hover {
+            background-position: 0 0;
+        }
+
+        &:active {
+            color: #fff;
+            background: var(--tui-primary);
+        }
+    }
+
+    &_twitter {
+        background: #fff url('/assets/images/sign-in-top-left.jpg');
+        background-size: 200%;
+        background-position: 50% 50%;
+
+        &:hover {
+            background-size: 100%;
+        }
+
+        &:active {
+            color: #fff;
+            background: var(--tui-primary);
+        }
+    }
+
+    &_facebook {
+        background: #fff url('/assets/images/sign-in-top-right.jpg') no-repeat;
+        background-position: 50px 0;
+
+        &:hover {
+            background-position: 0 0;
+        }
+
+        &:active {
+            color: #fff;
+            background: var(--tui-primary);
+        }
+    }
+
+    &:hover {
+        color: var(--tui-primary);
+        filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.2));
+        transform: translate3d(0, -1px, 0);
+    }
+
+    &:focus:not(:active) {
+        box-shadow: inset 0 0 0 1px #f48fb1, 0 0 0 2px #f48fb1;
+    }
+
+    @media screen and (max-width: 599px) {
+        margin: 16px;
+    }
+}
+
+.sign-in-error {
+    max-width: 450px;
+    height: 0;
+    margin: 0;
+    font-weight: bold;
+}
