@@ -98,7 +98,6 @@ export function playScoreFactory(injector: Injector): Observable<number> {
                 ? of(score)
                 : animationFrame$.pipe(
                       map(() => {
-                          // TODO: Think of a way to compute score without ClientRects each frame
                           const {bottom} = nativeElement.getBoundingClientRect();
                           const {
                               top,
