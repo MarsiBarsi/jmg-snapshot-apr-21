@@ -14,6 +14,7 @@ import {getTrack} from 'src/app/utils/get-track';
 export const AUDIO = new InjectionToken<Observable<number | AudioBuffer>>(
     'Audio preloading stream',
 );
+
 export const CUSTOM_PROVIDERS = [
     TuiDestroyService,
     MEDIA_STREAM_PROVIDER,
