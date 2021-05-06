@@ -21,7 +21,6 @@ interface Lyric {
     duration: number;
 }
 
-// TODO: Handle calibration better
 @Component({
     selector: 'sing',
     templateUrl: './sing.template.html',

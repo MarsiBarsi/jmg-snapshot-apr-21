@@ -7,7 +7,7 @@ import {NOTE_PROVIDERS} from './note.providers';
 
 @Directive({
     selector: '[note]',
-    providers: NOTE_PROVIDERS,
+    providers: NOTE_PROVIDERS
 })
 export class NoteDirective implements OnInit {
     @HostBinding('attr.data-played')
